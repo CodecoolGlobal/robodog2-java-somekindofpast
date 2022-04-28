@@ -26,13 +26,13 @@ public class TrickJdbcDAO implements TrickDAO {
 
     @Override
     public List<Trick> listTricks() {
-        String query = "SELECT name FROM trick";
+        String query = "SELECT * FROM trick";
         return jdbcTemplate.query(query, new TrickMapper());
     }
 
     @Override
     public Trick getTrick(long id) {
-        String query = "SELECT name FROM trick WHERE id = ?";
+        String query = "SELECT * FROM trick WHERE id = ?";
         return jdbcTemplate.queryForObject(query, new TrickMapper(), id);
     }
 
