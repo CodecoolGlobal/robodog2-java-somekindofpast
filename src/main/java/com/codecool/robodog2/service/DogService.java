@@ -5,6 +5,7 @@ import com.codecool.robodog2.dao.DogDAO;
 import com.codecool.robodog2.model.Breed;
 import com.codecool.robodog2.model.Dog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class DogService {
     private DogDAO dogRepository;
 
     @Autowired
-    public DogService(DogDAO dogRepository) {
+    public DogService(@Qualifier("dogJdbcDao") DogDAO dogRepository) {
         this.dogRepository = dogRepository;
     }
 
@@ -23,7 +24,7 @@ public class DogService {
         Dog newDog = new Dog();
         newDog.setAge(new Random().nextInt(15)+1);
         newDog.setBreed(Breed.values()[new Random().nextInt(Breed.values().length)]);
-        newDog.setName("Name " + (char)(new Random().nextInt(25)+65));
+        newDog.setName("Random_Name_" + (char)(new Random().nextInt(25)+65));
         return newDog;
     }
 

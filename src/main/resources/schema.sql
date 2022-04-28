@@ -52,7 +52,7 @@ ALTER TABLE pedigree
 ALTER TABLE skill
     ADD FOREIGN KEY (dog_id)
     REFERENCES dog(id)
-    ON DELETE SET NULL;
+    ON DELETE CASCADE;
 ALTER TABLE skill
     ADD FOREIGN KEY (trick_id)
     REFERENCES trick(id)
