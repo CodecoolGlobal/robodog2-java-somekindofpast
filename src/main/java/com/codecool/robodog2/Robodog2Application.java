@@ -3,7 +3,9 @@ package com.codecool.robodog2;
 import com.codecool.robodog2.DTO.DogDTO;
 import com.codecool.robodog2.model.Breed;
 import com.codecool.robodog2.model.Dog;
+import com.codecool.robodog2.model.Trick;
 import com.codecool.robodog2.service.DogService;
+import com.codecool.robodog2.service.TrickService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -14,9 +16,11 @@ import java.util.List;
 public class Robodog2Application {
 
     private static DogService dogService;
+    private static TrickService trickService;
 
-    public Robodog2Application(DogService dogService) {
+    public Robodog2Application(DogService dogService, TrickService trickService) {
         this.dogService = dogService;
+        this.trickService = trickService;
     }
 
     public static void main(String[] args) throws SQLException {
@@ -40,6 +44,13 @@ public class Robodog2Application {
         dogs = dogService.listAllDogs();
         for (Dog dog : dogs) {
             System.out.println("id:" + dog.getId() + " breed:" + dog.getBreed() + " age:" + dog.getAge() + " name:" + dog.getName());
+        }
+
+        trickService.deleteTrick(3);
+        System.out.println("\nDeleted trick 3. New list of tricks:");
+        List<Trick> tricks = trickService.listAllTricks();
+        for (Trick trick : tricks) {
+            System.out.println("id:" + trick.getId() + " name:" + trick.getName());
         }*/
     }
 
