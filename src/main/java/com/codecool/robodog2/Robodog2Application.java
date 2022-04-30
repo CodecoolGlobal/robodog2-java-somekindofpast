@@ -3,24 +3,29 @@ package com.codecool.robodog2;
 import com.codecool.robodog2.DTO.DogDTO;
 import com.codecool.robodog2.model.Breed;
 import com.codecool.robodog2.model.Dog;
+import com.codecool.robodog2.model.Skill;
 import com.codecool.robodog2.model.Trick;
 import com.codecool.robodog2.service.DogService;
+import com.codecool.robodog2.service.SkillService;
 import com.codecool.robodog2.service.TrickService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class Robodog2Application {
 
     private static DogService dogService;
     private static TrickService trickService;
+    private static SkillService skillService;
 
-    public Robodog2Application(DogService dogService, TrickService trickService) {
+    public Robodog2Application(DogService dogService, TrickService trickService, SkillService skillService) {
         this.dogService = dogService;
         this.trickService = trickService;
+        this.skillService = skillService;
     }
 
     public static void main(String[] args) throws SQLException {
@@ -51,6 +56,28 @@ public class Robodog2Application {
         List<Trick> tricks = trickService.listAllTricks();
         for (Trick trick : tricks) {
             System.out.println("id:" + trick.getId() + " name:" + trick.getName());
+        }
+
+        skillService.deleteSkill(3);
+        System.out.println("\nDeleted skill 3. New list of skills:");
+        List<Skill> skills = skillService.listAllSkills();
+        for (Skill skill : skills) {
+            System.out.println("id:" + skill.getId() + " dog_id:" + skill.getDogId() + " trick_id:" + skill.getTrickId() + " level:" + skill.getLevel());
+        }
+
+        System.out.println("\nList of dogs according to trick_id 3:");
+        List<Dog> dogs = skillService.listDogsByTrickId(3);
+        for (Dog dog : dogs) {
+            System.out.println("id:" + dog.getId() + " breed:" + dog.getBreed() + " age:" + dog.getAge() + " name:" + dog.getName());
+        }
+
+        Optional<Skill> optionalSkill = skillService.getSkill(3, 2);
+        if(optionalSkill.isPresent()) {
+            System.out.println("\nFound skill:");
+            Skill skill = optionalSkill.get();
+            System.out.println("id:" + skill.getId() + " dog_id:" + skill.getDogId() + " trick_id:" + skill.getTrickId() + " level:" + skill.getLevel());
+        } else {
+            System.out.println("\nSkill not found.");
         }*/
     }
 
