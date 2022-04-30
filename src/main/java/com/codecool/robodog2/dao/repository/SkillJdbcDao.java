@@ -55,21 +55,19 @@ public class SkillJdbcDao implements SkillDAO {
 
     @Override
     public List<Dog> listDogsByTrickId(long trickId) {
-        String query = "SELECT * FROM dog" +
-                "INNER JOIN skill ON dog.id = skill.dog_id" +
+        String query = "SELECT * FROM dog " +
+                "INNER JOIN skill ON dog.id = skill.dog_id " +
                 "WHERE skill.trick_id = ?";
         return jdbcTemplate.query(query, new DogMapper(), trickId);
     }
 
     @Override
     public Optional<Skill> getSkill(long dogId, long trickId) {
-        /*try {
+        try {
             String query = "SELECT * FROM skill WHERE dog_id = ? AND trick_id = ?";
             return Optional.ofNullable(jdbcTemplate.queryForObject(query, new SkillMapper(), dogId, trickId));
         } catch(EmptyResultDataAccessException e) {
             return Optional.empty();
-        }*/
-        String query = "SELECT * FROM skill WHERE dog_id = ? AND trick_id = ?";
-        return Optional.ofNullable(jdbcTemplate.queryForObject(query, new SkillMapper(), dogId, trickId));
+        }
     }
 }
