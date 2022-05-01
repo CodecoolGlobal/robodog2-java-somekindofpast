@@ -70,4 +70,28 @@ public class SkillJdbcDao implements SkillDAO {
             return Optional.empty();
         }
     }
+
+    @Override
+    public int checkSkillLevel(String trickName, long dogId) {
+        String query = "SELECT level FROM skill " +
+                "INNER JOIN trick ON skill.trick_id = trick.id " +
+                "WHERE skill.dog_id = ? AND trick.name = ?";
+        try {
+            return jdbcTemplate.queryForObject(query, Integer.class, dogId, trickName);
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    @Override
+    public void increaseSkillLevel(String trickName, long dogId) {
+        int level = checkSkillLevel(trickName, dogId);
+        if(level < 3)
+            level++;
+
+        String query = "UPDATE skill SET level = ? " +
+                "WHERE (SELECT id FROM trick WHERE trick.name = ?) = skill.trick_id AND skill.dog_id = ?";
+
+        jdbcTemplate.update(query, level, trickName, dogId);
+    }
 }

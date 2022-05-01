@@ -46,4 +46,12 @@ public class SkillService {
     public Optional<Skill> getSkill(long dogId, long trickId) {
         return skillRepository.getSkill(dogId, trickId);
     }
+
+    public int checkSkillLevel(String trickName, long dogId) {
+        return skillRepository.checkSkillLevel(trickName, dogId);
+    }
+
+    public void increaseSkillLevel(String trickName, long dogId) {
+        skillRepository.increaseSkillLevel(trickName, dogId);
+    }
 }
