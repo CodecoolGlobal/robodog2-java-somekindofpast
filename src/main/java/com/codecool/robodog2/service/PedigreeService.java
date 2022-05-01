@@ -37,4 +37,8 @@ public class PedigreeService {
     public void deletePedigree(long id) {
         pedigreeRepository.deletePedigree(id);
     }
+
+    public Pedigree getPedigreeByDogId(long dogId) {
+        return pedigreeRepository.getPedigreeByDogId(dogId);
+    }
 }
