@@ -48,4 +48,14 @@ public class PedigreeJdbcDao implements PedigreeDAO {
         String query = "DELETE FROM pedigree WHERE id = ?";
         jdbcTemplate.update(query, id);
     }
+
+    @Override
+    public Pedigree getPedigreeByDogId(long dogId) {
+        String query = "SELECT * FROM pedigree WHERE puppy_id = ?";
+        try {
+            return jdbcTemplate.queryForObject(query, new PedigreeMapper(), dogId);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
