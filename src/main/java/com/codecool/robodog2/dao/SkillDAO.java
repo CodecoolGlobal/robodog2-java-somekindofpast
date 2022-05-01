@@ -21,4 +21,8 @@ public interface SkillDAO {
     List<Dog> listDogsByTrickId(long trickId);
 
     Optional<Skill> getSkill(long dogId, long trickId);
+
+    int checkSkillLevel(String trickName, long dogId);
+
+    void increaseSkillLevel(String trickName, long dogId);
 }
