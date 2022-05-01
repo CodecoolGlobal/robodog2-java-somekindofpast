@@ -1,5 +1,6 @@
 package com.codecool.robodog2.controller;
 
+import com.codecool.robodog2.DTO.PedigreeDTO;
 import com.codecool.robodog2.model.Pedigree;
 import com.codecool.robodog2.service.PedigreeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,10 @@ public class PedigreeController {
     @GetMapping("/{dogId}/pedigree")
     public Pedigree getPedigreeByDogId(@PathVariable("dogId") long dogId) {
         return pedigreeService.getPedigreeByDogId(dogId);
+    }
+
+    @PostMapping("/{dogId}/pedigree")
+    public void addPedigree(@PathVariable("dogId") long dogId, @RequestBody PedigreeDTO pedigree) {
+        pedigreeService.addPedigree(pedigree);
     }
 }
