@@ -9,6 +9,7 @@ import com.codecool.robodog2.service.PedigreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -60,5 +61,10 @@ public class PedigreeController {
     public Dog getDad(@PathVariable("dogId") long dogId) {
         Pedigree pedigree = pedigreeService.getPedigreeByDogId(dogId);
         return dogService.getDogById(pedigree.getDadId());
+    }
+
+    @GetMapping("/{dogId}/pedigree/siblings")
+    public List<Dog> listDogSiblings(@PathVariable("dogId") long dogId) {
+        return pedigreeService.listDogSiblings(dogId);
     }
 }

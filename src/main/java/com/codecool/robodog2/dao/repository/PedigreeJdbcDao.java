@@ -1,7 +1,9 @@
 package com.codecool.robodog2.dao.repository;
 
 import com.codecool.robodog2.dao.PedigreeDAO;
+import com.codecool.robodog2.dao.mapper.DogMapper;
 import com.codecool.robodog2.dao.mapper.PedigreeMapper;
+import com.codecool.robodog2.model.Dog;
 import com.codecool.robodog2.model.Pedigree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -57,5 +59,14 @@ public class PedigreeJdbcDao implements PedigreeDAO {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public List<Dog> listDogSiblings(long dogId) {
+        Pedigree pedigree = getPedigreeByDogId(dogId);
+        String query = "SELECT * FROM dog " +
+                "INNER JOIN pedigree ON dog.id = pedigree.puppy_id " +
+                "WHERE dog.id != ? AND (pedigree.mom_id = ? OR pedigree.dad_id = ?)";
+        return jdbcTemplate.query(query, new DogMapper(), dogId, pedigree.getMomId(), pedigree.getDadId());
     }
 }
