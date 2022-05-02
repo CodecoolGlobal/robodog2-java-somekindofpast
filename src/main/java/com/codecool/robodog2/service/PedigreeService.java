@@ -2,6 +2,7 @@ package com.codecool.robodog2.service;
 
 import com.codecool.robodog2.DTO.PedigreeDTO;
 import com.codecool.robodog2.dao.PedigreeDAO;
+import com.codecool.robodog2.model.Dog;
 import com.codecool.robodog2.model.Pedigree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,9 @@ public class PedigreeService {
 
     public Pedigree getPedigreeByDogId(long dogId) {
         return pedigreeRepository.getPedigreeByDogId(dogId);
+    }
+
+    public List<Dog> listDogSiblings(long dogId) {
+        return pedigreeRepository.listDogSiblings(dogId);
     }
 }
