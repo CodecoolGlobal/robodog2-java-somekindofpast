@@ -49,4 +49,16 @@ public class PedigreeController {
         pedigreeService.addPedigree(new PedigreeDTO(momId, dadId, puppyId));
         return puppy;
     }
+
+    @GetMapping("/{dogId}/pedigree/mom")
+    public Dog getMom(@PathVariable("dogId") long dogId) {
+        Pedigree pedigree = pedigreeService.getPedigreeByDogId(dogId);
+        return dogService.getDogById(pedigree.getMomId());
+    }
+
+    @GetMapping("/{dogId}/pedigree/dad")
+    public Dog getDad(@PathVariable("dogId") long dogId) {
+        Pedigree pedigree = pedigreeService.getPedigreeByDogId(dogId);
+        return dogService.getDogById(pedigree.getDadId());
+    }
 }
