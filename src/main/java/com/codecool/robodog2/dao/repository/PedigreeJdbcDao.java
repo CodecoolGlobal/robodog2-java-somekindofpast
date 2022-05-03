@@ -62,6 +62,20 @@ public class PedigreeJdbcDao implements PedigreeDAO {
     }
 
     @Override
+    public Dog getMomDog(long dogId) {
+        Pedigree pedigree = getPedigreeByDogId(dogId);
+        String query = "SELECT * FROM dog WHERE dog.id = ?";
+        return jdbcTemplate.queryForObject(query, new DogMapper(), pedigree.getMomId());
+    }
+
+    @Override
+    public Dog getDadDog(long dogId) {
+        Pedigree pedigree = getPedigreeByDogId(dogId);
+        String query = "SELECT * FROM dog WHERE dog.id = ?";
+        return jdbcTemplate.queryForObject(query, new DogMapper(), pedigree.getDadId());
+    }
+
+    @Override
     public List<Dog> listDogSiblings(long dogId) {
         Pedigree pedigree = getPedigreeByDogId(dogId);
         String query = "SELECT * FROM dog " +

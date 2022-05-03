@@ -43,6 +43,14 @@ public class PedigreeService {
         return pedigreeRepository.getPedigreeByDogId(dogId);
     }
 
+    public Dog getMomDog(long dogId) {
+        return pedigreeRepository.getMomDog(dogId);
+    }
+
+    public Dog getDadDog(long dogId) {
+        return pedigreeRepository.getDadDog(dogId);
+    }
+
     public List<Dog> listDogSiblings(long dogId) {
         return pedigreeRepository.listDogSiblings(dogId);
     }
