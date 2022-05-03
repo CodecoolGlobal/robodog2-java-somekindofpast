@@ -53,14 +53,12 @@ public class PedigreeController {
 
     @GetMapping("/{dogId}/pedigree/mom")
     public Dog getMom(@PathVariable("dogId") long dogId) {
-        Pedigree pedigree = pedigreeService.getPedigreeByDogId(dogId);
-        return dogService.getDogById(pedigree.getMomId());
+        return pedigreeService.getMomDog(dogId);
     }
 
     @GetMapping("/{dogId}/pedigree/dad")
     public Dog getDad(@PathVariable("dogId") long dogId) {
-        Pedigree pedigree = pedigreeService.getPedigreeByDogId(dogId);
-        return dogService.getDogById(pedigree.getDadId());
+        return pedigreeService.getDadDog(dogId);
     }
 
     @GetMapping("/{dogId}/pedigree/siblings")

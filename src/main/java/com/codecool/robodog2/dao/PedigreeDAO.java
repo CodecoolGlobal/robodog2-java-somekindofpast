@@ -19,5 +19,9 @@ public interface PedigreeDAO {
 
     Pedigree getPedigreeByDogId(long dogId);
 
-    public List<Dog> listDogSiblings(long dogId);
+    Dog getMomDog(long dogId);
+
+    Dog getDadDog(long dogId);
+
+    List<Dog> listDogSiblings(long dogId);
 }
