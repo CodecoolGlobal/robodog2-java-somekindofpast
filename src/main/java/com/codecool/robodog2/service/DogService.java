@@ -28,6 +28,17 @@ public class DogService {
         return newDog;
     }
 
+    public Dog createPuppy(long momId, long dadId) {
+        Dog mom = getDogById(momId);
+        Dog dad = getDogById(dadId);
+        long puppyId = addRandomDog();
+        Dog puppy = getDogById(puppyId);
+        puppy.setBreed(new Random().nextInt() % 2 == 0 ? mom.getBreed() : dad.getBreed());
+        puppy.setAge(0);
+        updateDog(puppyId, new DogDTO(puppy.getBreed(), puppy.getName(), puppy.getAge()));
+        return puppy;
+    }
+
     public void addDog(DogDTO dog) {
         dogRepository.addDog(new Dog(dog.getBreed(), dog.getName(), dog.getAge()));
     }
