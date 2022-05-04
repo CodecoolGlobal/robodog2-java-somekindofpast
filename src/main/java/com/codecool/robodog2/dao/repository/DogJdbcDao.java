@@ -3,7 +3,6 @@ package com.codecool.robodog2.dao.repository;
 import com.codecool.robodog2.dao.DogDAO;
 import com.codecool.robodog2.dao.mapper.DogMapper;
 import com.codecool.robodog2.model.Dog;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -51,6 +50,7 @@ public class DogJdbcDao implements DogDAO {
     @Override
     public long addDogAndReturnId(Dog dog) {
         addDog(dog);
-        return listDogs().get(listDogs().size()-1).getId();
+        List<Dog> dogs = listDogs();
+        return dogs.get(dogs.size()-1).getId();
     }
 }

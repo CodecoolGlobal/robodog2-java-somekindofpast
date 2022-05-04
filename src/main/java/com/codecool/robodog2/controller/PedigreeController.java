@@ -1,6 +1,5 @@
 package com.codecool.robodog2.controller;
 
-import com.codecool.robodog2.DTO.DogDTO;
 import com.codecool.robodog2.DTO.PedigreeDTO;
 import com.codecool.robodog2.model.Dog;
 import com.codecool.robodog2.model.Pedigree;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/dog")
@@ -40,14 +38,8 @@ public class PedigreeController {
     public Dog createPuppy(@RequestBody Map<String, Long> json) {
         long momId = json.get("momId");
         long dadId = json.get("dadId");
-        Dog mom = dogService.getDogById(momId);
-        Dog dad = dogService.getDogById(dadId);
-        long puppyId = dogService.addRandomDog();
-        Dog puppy = dogService.getDogById(puppyId);
-        puppy.setBreed(new Random().nextInt() % 2 == 0 ? mom.getBreed() : dad.getBreed());
-        puppy.setAge(0);
-        dogService.updateDog(puppyId, new DogDTO(puppy.getBreed(), puppy.getName(), puppy.getAge()));
-        pedigreeService.addPedigree(new PedigreeDTO(momId, dadId, puppyId));
+        Dog puppy = dogService.createPuppy(momId, dadId);
+        pedigreeService.addPedigree(new PedigreeDTO(momId, dadId, puppy.getId()));
         return puppy;
     }
 
